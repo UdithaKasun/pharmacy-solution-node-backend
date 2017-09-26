@@ -13,11 +13,13 @@ app.use(bodyParser.json())
 app.use(cors());
 
 app.get('/', function (req, res) {
-    res.sendFile('index.html',{ root: __dirname });
+    res.send("<h1>Hello World</h1>");
 })
 
-app.use('/api/Books',require('./app/routes/BookRoute'));
-app.use('/api/Authors', require('./app/routes/AuthorRoute'))
+// app.use('/api/Books',require('./app/routes/BookRoute'));
+app.use('/api/Drugs', require('./routes/drug.routes'))
+
+
 app.listen(3000, function () {
     console.log('BookAPI app listening on port 3000!')
 })
