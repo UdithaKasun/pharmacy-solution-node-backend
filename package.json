@@ -1,0 +1,19 @@
+{
+  "name": "pharmacy-solution-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UdithaKasun/pharmacy-solution-node-backen.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UdithaKasun/pharmacy-solution-node-backen/issues"
+  },
+  "homepage": "https://github.com/UdithaKasun/pharmacy-solution-node-backen#readme"
+}
