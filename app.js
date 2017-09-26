@@ -1,27 +1,23 @@
-const express = require('express')
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser')
+var express = require('express');
 var cors = require('cors')
+var bodyParser = require('body-parser');
 
-const app = express()
+var app = express();
+app.use(cors())
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
-// parse application/json
-app.use(bodyParser.json())
-app.use(cors());
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-app.get('/', function (req, res) {
-    res.send("<h1>Hello World</h1>");
-})
+var drugApi = require('./routes/drug_api');
 
-// app.use('/api/Books',require('./app/routes/BookRoute'));
-app.use('/api/Drugs', require('./routes/drug.routes'))
+app.use('/drug', drugApi);
 
-
-app.listen(3000, function () {
-    console.log('BookAPI app listening on port 3000!')
-})
-
-module.exports = app;
+app.listen(4000, function () {
+  console.log('app listening on port 4000!')
+});

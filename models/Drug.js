@@ -20,6 +20,6 @@ var drugSchema = new Schema({
     drug_status_reorder : Number
 });
 
-var Drug = mongoose.model('Drug',drugSchema,'Drug');
+var Drug = mongoose.model('Drug',drugSchema,'drug');
 
 module.exports = Drug;
