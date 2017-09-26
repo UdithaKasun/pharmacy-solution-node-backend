@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/UdithaKasun/pharmacy-solution-node-backen/issues"
   },
-  "homepage": "https://github.com/UdithaKasun/pharmacy-solution-node-backen#readme"
+  "homepage": "https://github.com/UdithaKasun/pharmacy-solution-node-backen#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.15.5"
+  }
 }
