@@ -4,35 +4,26 @@
 
 var express = require('express');
 var Drug = require('../models/Drug');
-var db = require('./DBConnection');
+
 
 var DrugRoute = express.Router();
 
 // middleware that is specific to this router
 DrugRoute.use(function timeLog (req, res, next) {
-    console.log('Time: ', Date.now())
     next()
 });
 
-// Get All Books
+// Get All Drugs from Database
 DrugRoute.get('/', function (req, res) {
-    db_instance = db.getConnection();
-    console.log(db_instance());
-    // db_instance.collection("drug").find({}).toArray(function (err, remongo_responses) {
-    //     if (err) {
-    //         console.log(err);
-    //         return res.status(404).json({
-    //             message: JSON.stringify(err),
-    //             error: true
-    //         });
-    //     }
-
-    //     return res.status(200).json({
-    //         data: remongo_responses,
-    //         error: false
-    //     })
-
-    // });
+    Drug.find({}, function (err, docs) {
+        if(err){
+            res.sendStatus(500);
+            res.end();
+        }
+        else{
+            res.json(docs);
+        }
+    });
 });
 
 //Get a Book Identified by Id
@@ -54,16 +45,15 @@ DrugRoute.get('/:id', function (req, res) {
 });
 
 
-// Add New Book
+// Add New Drug
 DrugRoute.post('/', function (req, res) {
 var drug = new Drug(req.body);
-console.log(req.body);
-drug.save( (err,dbBook) => {
+drug.save( (err,newDrug) => {
         if(err){
             res.sendStatus(500);
         }
         else{
-            res.status(201).send({ _id : dbBook._id });
+            res.status(201).send({ _id : newDrug._id });
 }
 });
 });
