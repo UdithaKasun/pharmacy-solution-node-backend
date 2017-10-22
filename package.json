@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/UdithaKasun/pharmacy-solution-node-backen#readme",
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.15.5",

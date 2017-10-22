@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 var db = require('./routes/common/DBConnection');
 var morgan = require('morgan');
 var Logger = require('./routes/common/Logger');
+var utils = require('./routes/common/utilities');
+
 
 const CONFIG = require('./config/config');
 
@@ -20,9 +22,11 @@ app.use(function(req, res, next) {
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
+var authenticationApi = require('./routes/authentication_api');
 var drugApi = require('./routes/drug_api');
 
 app.use('/drug', drugApi);
+app.use('/authentcation', authenticationApi);
 
 app.listen(CONFIG.SERVER_PORT, function (err) {
   Logger.info("Express Server Started at Port : " + CONFIG.SERVER_PORT);
