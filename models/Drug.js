@@ -1,11 +1,6 @@
-/**
- * Created by Uditha Kasun on 9/26/2017.
- */
-
 var mongoose = require('mongoose');
 mongoose.promise = global.promise
 var Schema = mongoose.Schema;
-
 
 var drugSchema = new Schema({
     drug_srno:  String,
@@ -22,6 +17,4 @@ var drugSchema = new Schema({
     drug_status_reorder : Number
 });
 
-var Drug = mongoose.model('Drug',drugSchema,'pharm_drug');
-
-module.exports = Drug;
+mongoose.model('Drug',drugSchema,'pharm_drug');
