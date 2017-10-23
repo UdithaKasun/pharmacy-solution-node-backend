@@ -1,47 +1,44 @@
-/**
- * Created by Uditha Kasun on 9/26/2017.
- */
-
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
+var uniqueValidator = require('mongoose-unique-validator');
+var crypto = require('crypto');
+var jwt = require('jsonwebtoken');
+var secret = require('../config').secret;
 
-mongoose.promise = global.promise
-var Schema = mongoose.Schema;
+var UserSchema = new mongoose.Schema({
+  username: {type: String, lowercase: true, unique: true, required: [true, "can't be blank"], match: [/^[a-zA-Z0-9]+$/, 'is invalid'], index: true},
+  hash: String,
+  salt: String
+}, {timestamps: true});
 
-var UserSchema = new Schema({
-    username:  String,
-    password : String
-});
+UserSchema.plugin(uniqueValidator, {message: 'is already taken.'});
 
-UserSchema.pre('save', function (next) {
-    var user = this;
-    if (this.isModified('password') || this.isNew) {
-        bcrypt.genSalt(10, function (err, salt) {
-            if (err) {
-                return next(err);
-            }
-            bcrypt.hash(user.password, salt, function (err, hash) {
-                if (err) {
-                    return next(err);
-                }
-                user.password = hash;
-                next();
-            });
-        });
-    } else {
-        return next();
-    }
-});
- 
-UserSchema.methods.comparePassword = function (passw, cb) {
-    bcrypt.compare(passw, this.password, function (err, isMatch) {
-        if (err) {
-            return cb(err);
-        }
-        cb(null, isMatch);
-    });
+UserSchema.methods.validPassword = function(password) {
+  var hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
+  return this.hash === hash;
 };
 
-var User = mongoose.model('User',UserSchema,'users');
+UserSchema.methods.setPassword = function(password){
+  this.salt = crypto.randomBytes(16).toString('hex');
+  this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
+};
 
-module.exports = User;
+UserSchema.methods.generateJWT = function() {
+  var today = new Date();
+  var exp = new Date(today);
+  exp.setDate(today.getDate() + 60);
+
+  return jwt.sign({
+    id: this._id,
+    username: this.username,
+    exp: parseInt(exp.getTime() / 1000),
+  }, secret);
+};
+
+UserSchema.methods.toAuthJSON = function(){
+  return {
+    username: this.username,
+    token: this.generateJWT()
+  };
+};
+
+mongoose.model('User', UserSchema);

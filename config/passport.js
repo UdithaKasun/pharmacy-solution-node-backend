@@ -1,25 +1,18 @@
-var JwtStrategy = require('passport-jwt').Strategy,
-ExtractJwt = require('passport-jwt').ExtractJwt;
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var mongoose = require('mongoose');
+var User = mongoose.model('User');
 
-// load up the user model
-var User = require('../models/User');
-var secret = "udithax";
+passport.use(new LocalStrategy({
+  usernameField: 'user[username]',
+  passwordField: 'user[password]'
+}, function(username, password, done) {
+  User.findOne({username: username}).then(function(user){
+    if(!user || !user.validPassword(password)){
+      return done(null, false, {errors: {'username or password': 'is invalid'}});
+    }
 
-module.exports = function(passport) {
- var opts = {};
- opts.secretOrKey = secret;
- opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt')
+    return done(null, user);
+  }).catch(done);
+}));
 
- passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
-   User.findOne({id: jwt_payload.id}, function(err, user) {
-         if (err) {
-             return done(err, false);
-         }
-         if (user) {
-             done(null, user);
-         } else {
-             done(null, false);
-         }
-     });
- }));
-};
