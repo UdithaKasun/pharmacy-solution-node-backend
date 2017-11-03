@@ -65,6 +65,8 @@ process.on('SIGINT', function () {
 
 require('./models/User');
 require('./models/Drug');
+require('./models/Customer');
+require('./models/Manufacturer');
 require('./config/passport');
 
 app.use(require('./routes'));
