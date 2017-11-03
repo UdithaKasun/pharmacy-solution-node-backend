@@ -4,7 +4,10 @@ var Schema = mongoose.Schema;
 
 var prescriptionSchema = new Schema({
     prescription_id : String,
-    prescription_created_user: String,
+    prescription_created_user_id: {
+        type: mongoose.Schema.ObjectId,
+        ref:'User'
+    },
     prescription_created_timestamp:String,
     prescription_last_update_date:String,
     prescription_status:String,

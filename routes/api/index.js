@@ -5,6 +5,8 @@ router.use('/drugs', require('./drugs'));
 router.use('/customer', require('./customer'));
 router.use('/manufacturer', require('./manufacturer'));
 router.use('/prescription', require('./prescription'));
+router.use('/drugrequest', require('./drugRequest'));
+router.use('/requestpayment', require('./requestPayment'));
 router.use('/supplier', require('./supplier'));
 
 

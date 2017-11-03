@@ -69,6 +69,8 @@ require('./models/Customer');
 require('./models/Manufacturer');
 require('./models/Prescription');
 require('./models/Supplier');
+require('./models/DrugRequest');
+require('./models/RequestPayment');
 require('./config/passport');
 
 app.use(require('./routes'));

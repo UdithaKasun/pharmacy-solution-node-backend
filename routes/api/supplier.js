@@ -11,7 +11,7 @@ router.get('/', auth.required, function (req, res, next) {
     if (!user) { return res.sendStatus(401); }
 
     Supplier.find({})
-    .populate('spplier_drugs')
+    .populate('supplier_drugs')
       .then(function (suppliers) {
         if (!suppliers) { return res.sendStatus(404); }
         return res.json({
@@ -42,7 +42,7 @@ router.get('/:supplierid', auth.required, function (req, res, next) {
     if (!user) { return res.sendStatus(401); }
 
     Supplier.findOne({ supplier_id: req.params.supplierid })
-    .populate('spplier_drugs')
+    .populate('supplier_drugs')
       .then(function (supplier) {
         if (!supplier) { return res.sendStatus(404); }
         return res.json({
@@ -60,7 +60,7 @@ router.get('/:suppliername', auth.required, function (req, res, next) {
         if (!user) { return res.sendStatus(401); }
     
         Supplier.findOne({ supplier_name: req.params.suppliername })
-        .populate('spplier_drugs')
+        .populate('supplier_drugs')
           .then(function (supplier) {
             if (!supplier) { return res.sendStatus(404); }
             return res.json({

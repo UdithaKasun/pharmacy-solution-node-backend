@@ -11,6 +11,7 @@ router.get('/', auth.required, function (req, res, next) {
     if (!user) { return res.sendStatus(401); }
 
     Prescription.find()
+        .populate('prescription_created_user_id')
         .populate('prescription_patient_id')
         .populate('prescription_drugs.prescription_item_drug_id')
       .then(function (prescriptions) {
@@ -43,6 +44,7 @@ router.get('/:prescriptionid', auth.required, function (req, res, next) {
     if (!user) { return res.sendStatus(401); }
 
     Prescription.findOne({ prescription_id: req.params.prescriptionid })
+        .populate('prescription_created_user_id')
         .populate('prescription_patient_id')
         .populate('prescription_drugs.prescription_item_drug_id')
         .then(function (prescription) {
