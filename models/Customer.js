@@ -6,16 +6,14 @@ var customerSchema = new Schema({
     customer_id : String,
     customer_name : String,
     customer_address :String,
+    customer_email:String,
+    customer_contact:String,
     customer_age : String,
+    customer_nic:String,
     customer_order_history : [
         {
-            id : String,
-            date : String,
-            items : [{
-                id : String,
-                name : String,
-                price : String
-            }]
+            type : mongoose.Schema.ObjectId,
+            ref : 'Prescription'
         }
     ]
 });
