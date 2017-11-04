@@ -27,9 +27,9 @@ router.post('/', auth.required, function (req, res, next) {
     if (!user) { return res.sendStatus(401); }
 
     var manufacturer = new Manufacturer(req.body.manufacturer);
-
+    manufacturer.manufacturer_id = "MANU_" + new Date().getTime();
     return manufacturer.save().then(function () {
-      return res.sendStatus(201);
+        return res.json( { status : "SUCCESS"});
     });
   }).catch(next);
 });
@@ -58,7 +58,7 @@ router.delete('/:manufacturerid', auth.required, function (req, res, next) {
 
     Manufacturer.remove({ manufacturer_id: req.params.manufacturerid })
       .then(function (status) {
-        res.sendStatus(200);
+          return res.json( { status : "SUCCESS"});
       })
       .catch(next);
   }).catch(next);
@@ -72,10 +72,14 @@ router.put('/:manufacturerid', auth.required, function (req, res, next) {
     Manufacturer.findOne({ manufacturer_id: req.params.manufacturerid })
       .then(function (manufacturer) {
         if (!manufacturer) { return res.sendStatus(404); }
-        manufacturer = new Manufacturer(req.body.manufacturer);
+        //manufacturer = new Manufacturer(req.body.manufacturer);
+        manufacturer.manufacturer_name= req.body.manufacturer.manufacturer_name;
+        manufacturer.manufacturer_address= req.body.manufacturer.manufacturer_address;
+        manufacturer.manufacturer_contact= req.body.manufacturer.manufacturer_contact;
+        manufacturer.manufacturer_email= req.body.manufacturer.manufacturer_email;
         manufacturer.save()
           .then(function (manufacturer) {
-            res.sendStatus(200);
+              return res.json( { status : "SUCCESS"});
           }).catch(next);
       }).catch(next);
   }).catch(next);;
