@@ -116,3 +116,5 @@ app.use(function (err, req, res, next) {
 var server = app.listen(process.env.PORT || 3000, function () {
   logger.info("Express Server Started at Port : " + server.address().port);
 });
+
+module.exports = server;

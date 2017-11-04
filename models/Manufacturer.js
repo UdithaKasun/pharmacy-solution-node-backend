@@ -10,4 +10,4 @@ var manufactuerSchema = new Schema({
     manufacturer_email: String
 });
 
-mongoose.model('Manufacturer',manufactuerSchema,'pharm_manufacturer');
+module.exports = mongoose.model('Manufacturer',manufactuerSchema,'pharm_manufacturer');

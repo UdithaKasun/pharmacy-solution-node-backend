@@ -25,11 +25,10 @@ router.get('/', auth.required, function (req, res, next) {
 router.post('/', auth.required, function (req, res, next) {
   User.findById(req.payload.id).then(function (user) {
     if (!user) { return res.sendStatus(401); }
-
     var customer = new Customer(req.body.customer);
-
+    customer.customer_id = "CUST_" + new Date().getTime();
     return customer.save().then(function () {
-      return res.sendStatus(201);
+        return res.json( { status : "SUCCESS"});
     });
   }).catch(next);
 });
@@ -58,7 +57,7 @@ router.delete('/:customerid', auth.required, function (req, res, next) {
 
     Customer.remove({ customer_id: req.params.customerid })
       .then(function (status) {
-        res.sendStatus(200);
+        return res.json( { status : "SUCCESS"});
       })
       .catch(next);
   }).catch(next);
@@ -72,10 +71,15 @@ router.put('/:customerid', auth.required, function (req, res, next) {
     Customer.findOne({ customer_id: req.params.customerid })
       .then(function (customer) {
         if (!customer) { return res.sendStatus(404); }
-        customer = new Customer(req.body.customer);
+        customer.customer_name = req.body.customer.customer_name;
+        customer.customer_age = req.body.customer.customer_age;
+        customer.customer_nic = req.body.customer.customer_nic;
+        customer.customer_address = req.body.customer.customer_address;
+        customer.customer_contact = req.body.customer.customer_contact;
+        customer.customer_email = req.body.customer.customer_email;
         customer.save()
           .then(function (customer) {
-            res.sendStatus(200);
+              return res.json( { status : "SUCCESS"});
           }).catch(next);
       }).catch(next);
   }).catch(next);;

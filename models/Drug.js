@@ -17,4 +17,4 @@ var drugSchema = new Schema({
     drug_status_reorder : Number
 });
 
-mongoose.model('Drug',drugSchema,'pharm_drug');
+module.exports = mongoose.model('Drug',drugSchema,'pharm_drug');

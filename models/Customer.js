@@ -12,10 +12,11 @@ var customerSchema = new Schema({
     customer_age : String,
     customer_order_history : [
         {
-            type : mongoose.Schema.ObjectId,
+            type : mongoose.Schema.Types.ObjectId,
             ref : 'Prescription'
         }
     ]
 });
 
-mongoose.model('Customer',customerSchema,'pharm_customer');
+module.exports = mongoose.model('Customer',customerSchema,'pharm_customer');
+
