@@ -67,6 +67,11 @@ require('./models/User');
 require('./models/Drug');
 require('./models/DrugCategory');
 require('./models/Supplier');
+require('./models/Customer');
+require('./models/Manufacturer');
+require('./models/Prescription');
+require('./models/DrugRequest');
+require('./models/RequestPayment');
 require('./config/passport');
 
 app.use(require('./routes'));
@@ -112,3 +117,5 @@ app.use(function (err, req, res, next) {
 var server = app.listen(process.env.PORT || 3000, function () {
   logger.info("Express Server Started at Port : " + server.address().port);
 });
+
+module.exports = server; 

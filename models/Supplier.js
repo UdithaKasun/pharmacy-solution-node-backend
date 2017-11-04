@@ -6,8 +6,7 @@ var supplierSchema = new Schema({
     supplier_id:  String,
     supplier_name : String,
     supplier_contact_number : String,
-    supplier_contact_address : Date,
-    supplier_active : String,
+    supplier_active : Boolean,
     supplier_contact_email_address : String,
     supplier_drugs : [],
     supplier_payment_details : []
