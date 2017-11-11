@@ -11,9 +11,6 @@ router.get('/', auth.required, function (req, res, next) {
     if (!user) { return res.sendStatus(401); }
 
     Prescription.find()
-        .populate('prescription_created_user_id')
-        .populate('prescription_patient_id')
-        .populate('prescription_drugs.prescription_item_drug_id')
       .then(function (prescriptions) {
         if (!prescriptions) { return res.sendStatus(404); }
         return res.json({
@@ -30,6 +27,8 @@ router.post('/', auth.required, function (req, res, next) {
     if (!user) { return res.sendStatus(401); }
 
     var prescription = new Prescription(req.body.prescription);
+    prescription.prescription_id = "PRES_" + new Date().getTime();
+    prescription.prescription_created_timestamp = new Date().getTime();
 
     return prescription.save().then(function () {
       return res.sendStatus(201);
@@ -45,8 +44,8 @@ router.get('/:prescriptionid', auth.required, function (req, res, next) {
 
     Prescription.findOne({ prescription_id: req.params.prescriptionid })
         .populate('prescription_created_user_id')
-        .populate('prescription_patient_id')
-        .populate('prescription_drugs.prescription_item_drug_id')
+        .populate('prescription_patient_name')
+        .populate('prescription_drugs.prescription_item_drug_name')
         .then(function (prescription) {
         if (!prescription) { return res.sendStatus(404); }
         return res.json({
