@@ -34,7 +34,7 @@ if (!isProduction) {
 if (isProduction) {
   mongoose.connect(process.env.MONGODB_URI);
 } else {
-  mongoose.connect('mongodb://localhost/pharmacy_solution_db');
+  mongoose.connect('mongodb://localhost/employee_leave_db');
   mongoose.set('debug', true);
 }
 
@@ -64,14 +64,7 @@ process.on('SIGINT', function () {
 });
 
 require('./models/User');
-require('./models/Drug');
-require('./models/DrugCategory');
-require('./models/Supplier');
-require('./models/Customer');
-require('./models/Manufacturer');
-require('./models/Prescription');
-require('./models/DrugRequest');
-require('./models/RequestPayment');
+require('./models/Leave');
 require('./config/passport');
 
 app.use(require('./routes'));

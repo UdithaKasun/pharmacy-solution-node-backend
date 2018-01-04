@@ -1,9 +1,8 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
 var router = require('express').Router();
-var Drug = mongoose.model('Drug');
+var Leave = mongoose.model('Leave');
 var User = mongoose.model('User');
-var DrugCategory = mongoose.model('DrugCategory');
 var auth = require('../auth');
 
 //Getting all drugs from the database
@@ -27,30 +26,46 @@ router.post('/', auth.required, function (req, res, next) {
   User.findById(req.payload.id).then(function (user) {
     if (!user) { return res.sendStatus(401); }
 
-    var drug = new Drug(req.body.drug);
-    drug.drug_srno = "DRUG_" + new Date().getTime();
-    return drug.save().then(function () {
+    var leave = new Leave(req.body.leave);
+
+    return leave.save().then(function () {
       return res.json( { status : "SUCCESS"});
     });
   }).catch(next);
 });
 
 //Getting by quering the drug id
-router.get('/:drugid', auth.required, function (req, res, next) {
+router.get('/user/:userId', auth.required, function (req, res, next) {
 
   User.findById(req.payload.id).then(function (user) {
     if (!user) { return res.sendStatus(401); }
 
-    Drug.findOne({ drug_srno: req.params.drugid })
-      .then(function (drug) {
-        if (!drug) { return res.sendStatus(404); }
+    Leave.find({ user_id: req.params.userId })
+      .then(function (leaves) {
+        if (!leaves) { return res.sendStatus(404); }
         return res.json({
-          drug: drug
+            leaves: leaves
         });
       }).catch(next);
 
   });
 });
+
+router.get('/leader/:leaderId', auth.required, function (req, res, next) {
+
+    User.findById(req.payload.id).then(function (user) {
+      if (!user) { return res.sendStatus(401); }
+  
+      Leave.find({ leave_approver_id: req.params.leaderId })
+        .then(function (leaves) {
+          if (!leaves) { return res.sendStatus(404); }
+          return res.json({
+              leaves: leaves
+          });
+        }).catch(next);
+  
+    });
+  });
 
 //Delete drug by quering the drug id
 router.delete('/:drugid', auth.required, function (req, res, next) {
@@ -66,19 +81,20 @@ router.delete('/:drugid', auth.required, function (req, res, next) {
 });
 
 //Update drug by drug id
-router.put('/:drugid', auth.required, function (req, res, next) {
+router.put('/user/leave/:leaveid', auth.required, function (req, res, next) {
+    console.log("Calledd");
   User.findById(req.payload.id).then(function (user) {
     if (!user) { return res.sendStatus(401); }
 
-    Drug.findOne({ drug_srno: req.params.drugid })
-      .then(function (drug) {
-        if (!drug) { return res.sendStatus(404); }
-        drug.drug_name = req.body.drug.drug_name;
-        drug.drug_price = req.body.drug.drug_price;
-        drug.drug_current_quantity = req.body.drug.drug_current_quantity;
-        drug.drug_status_reorder = req.body.drug.drug_status_reorder;
-        drug.save()
-          .then(function (drug) {
+    console.log(req.params.leaveid);
+    Leave.findById(req.params.leaveid )
+      .then(function (leave) {
+        if (!leave) { return res.sendStatus(404); }
+        leave.leave_from_date = req.body.leave.leave_from_date;
+        leave.leave_to_date = req.body.leave.leave_to_date;
+        leave.leave_count = req.body.leave.leave_count;
+        leave.save()
+          .then(function (leave) {
             return res.json( { status : "SUCCESS"});
           }).catch(next);
       }).catch(next);

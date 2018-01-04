@@ -7,7 +7,9 @@ var secret = require('../config').secret;
 var UserSchema = new mongoose.Schema({
   username: {type: String, lowercase: true, unique: true, required: [true, "can't be blank"], match: [/^[a-zA-Z0-9]+$/, 'is invalid'], index: true},
   hash: String,
-  salt: String
+  salt: String,
+  userrole : String,
+  leaderId : String
 }, {timestamps: true});
 
 UserSchema.plugin(uniqueValidator, {message: 'is already taken.'});
