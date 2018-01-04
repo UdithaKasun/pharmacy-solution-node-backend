@@ -1,0 +1,260 @@
+{
+	"info": {
+		"name": "Leaves App",
+		"_postman_id": "16a09c0f-8d22-fc56-e3b0-fca85028c2b8",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST Leaves",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhNGU1NmFlYzNjODgzZDQxMjQwNDgyZCIsInVzZXJuYW1lIjoidGVzdGVyIiwiZXhwIjoxNTIwMjY3NDY1LCJpYXQiOjE1MTUwODM0NjV9.p7ClrnNY9yzJ903NDR1OsK229asSsgY8lWgAa0Qqdqc"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"leave\" : {\n\t\t\"user_id\" : \"U001\",\n\t\t\"leave_from_date\" : \"2018/01/04\",\n\t\t\"leave_to_date\" : \"2018/01/08\",\n\t\t\"leave_count\" : 5,\n\t\t\"leave_type\" : \"PLANNED\",\n\t\t\"leave_status\" : \"PENDING\",\n\t\t\"leave_approver_id\" : \"L001\"\n\t} \n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/leaves",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"leaves"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user\" : { \n\t\t\t\t\"username\" : \"tester\",\n\t\t\t\t\"password\" : \"abcd1234\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user\" : { \n\t\t\t\t\"username\" : \"tester\",\n\t\t\t\t\"password\" : \"abcd1234\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update Leave User",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhNGU1NmFlYzNjODgzZDQxMjQwNDgyZCIsInVzZXJuYW1lIjoidGVzdGVyIiwiZXhwIjoxNTIwMjY3NDY1LCJpYXQiOjE1MTUwODM0NjV9.p7ClrnNY9yzJ903NDR1OsK229asSsgY8lWgAa0Qqdqc"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"leave\" : {\n\t\t\"leave_id\" : \"LEAVE_1515087229697\",\n\t\t\"leave_from_date\" : \"2018/01/04\",\n\t\t\"leave_to_date\" : \"2018/01/17\",\n\t\t\"leave_count\" : 50\n\t} \n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/leaves",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"leaves"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Leave By Status for User",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhNGU1NmFlYzNjODgzZDQxMjQwNDgyZCIsInVzZXJuYW1lIjoidGVzdGVyIiwiZXhwIjoxNTIwMjY3NDY1LCJpYXQiOjE1MTUwODM0NjV9.p7ClrnNY9yzJ903NDR1OsK229asSsgY8lWgAa0Qqdqc"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"leave\" : {\n\t\t\"user_id\" : \"U001\",\n\t\t\"leave_from_date\" : \"2018/01/04\",\n\t\t\"leave_to_date\" : \"2018/01/08\",\n\t\t\"leave_count\" : 5,\n\t\t\"leave_type\" : \"PLANNED\",\n\t\t\"leave_status\" : \"PENDING\",\n\t\t\"leave_approver_id\" : \"L001\"\n\t} \n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/leaves/user/U001?status=PENDING",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"leaves",
+						"user",
+						"U001"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "PENDING",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get leaves assigned to User",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhNGU1NmFlYzNjODgzZDQxMjQwNDgyZCIsInVzZXJuYW1lIjoidGVzdGVyIiwiZXhwIjoxNTIwMjY3NDY1LCJpYXQiOjE1MTUwODM0NjV9.p7ClrnNY9yzJ903NDR1OsK229asSsgY8lWgAa0Qqdqc"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"leave\" : {\n\t\t\"user_id\" : \"U001\",\n\t\t\"leave_from_date\" : \"2018/01/04\",\n\t\t\"leave_to_date\" : \"2018/01/08\",\n\t\t\"leave_count\" : 5,\n\t\t\"leave_type\" : \"PLANNED\",\n\t\t\"leave_status\" : \"PENDING\",\n\t\t\"leave_approver_id\" : \"L001\"\n\t} \n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/leaves/leader/L001?status=OTHER",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"leaves",
+						"leader",
+						"L001"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "OTHER",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update Leave Status",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhNGU1NmFlYzNjODgzZDQxMjQwNDgyZCIsInVzZXJuYW1lIjoidGVzdGVyIiwiZXhwIjoxNTIwMjY3NDY1LCJpYXQiOjE1MTUwODM0NjV9.p7ClrnNY9yzJ903NDR1OsK229asSsgY8lWgAa0Qqdqc"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"leave\" : {\n\t\t\"leave_id\" : \"LEAVE_1515087229697\",\n\t\t\"leave_status\" : \"OTHER\"\n\t} \n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/leaves/status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"leaves",
+						"status"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
