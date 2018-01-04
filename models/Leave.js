@@ -3,6 +3,7 @@ mongoose.promise = global.promise
 var Schema = mongoose.Schema;
 
 var leaveSchema = new Schema({
+    leave_id : String,
     user_id : String,
     leave_from_date : Date,
     leave_to_date : Date,
